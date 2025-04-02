@@ -1,0 +1,25 @@
+# Composer
+vendor/
+composer.lock
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# IDE/Editor files
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
+
+# Build artifacts (adjust if needed)
+# build/
+# dist/ 
