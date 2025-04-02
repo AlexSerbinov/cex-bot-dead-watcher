@@ -13,8 +13,18 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/Logger.php';
 require_once __DIR__ . '/DeadWatcherConfig.php';
 
-$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
-$dotenv->load();
+$dotenv = null;
+$envPath = __DIR__ . '/..';
+if (file_exists($envPath . '/.env')) {
+    $dotenv = Dotenv::createImmutable($envPath);
+    $dotenv->load();
+} else {
+    // Логування відсутності .env для діагностики
+    file_put_contents(__DIR__ . '/../logs/dead-watcher.log', '[' . date('Y-m-d H:i:s') . '] [INFO]: .env file not found, using default configuration' . PHP_EOL, FILE_APPEND);
+    if (php_sapi_name() === 'cli') {
+        echo '[' . date('Y-m-d H:i:s') . '] [INFO]: .env file not found, using default configuration' . PHP_EOL;
+    }
+}
 
 class DeadWatcher
 {
