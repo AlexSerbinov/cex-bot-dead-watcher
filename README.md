@@ -8,12 +8,12 @@ Dead Watcher is a service designed to monitor heartbeats from trading bots and c
 In our trading system, if a bot instance crashes or stops functioning, its orders remain in the order book. This poses a risk: if the price of an asset (e.g., BTC) moves significantly up or down, users could profitably execute these orphaned orders, leading to financial losses. Dead Watcher addresses this issue by actively monitoring bot activity and cleaning up orders when a bot becomes unresponsive.
 
 ### Functionality
-- **Heartbeat Monitoring**: Dead Watcher listens for heartbeat signals from active trading pairs every 120 seconds (configurable via `DeadWatcherConfig.php`). These signals are sent to the `/dead-watcher/heartbeat` endpoint.
+- **Heartbeat Monitoring**: Dead Watcher listens for heartbeat signals from active trading pairs every 600 seconds (configurable via `DeadWatcherConfig.php`). These signals are sent to the `/dead-watcher/heartbeat` endpoint.
 - **Dynamic Pair Registration**: It does not rely on a predefined list of pairs. Instead, when a signal is received for a pair (e.g., `BTC_ETH`), Dead Watcher registers it dynamically and begins monitoring.
-- **Asynchronous Order Cancellation**: Built on ReactPHP, Dead Watcher performs order cancellations asynchronously for a pair more than 120 seconds after no heartbeat is received, ensuring near-instantaneous responses rather than slow synchronous operations.
+- **Asynchronous Order Cancellation**: Built on ReactPHP, Dead Watcher performs order cancellations asynchronously for a pair more than 60 seconds after no heartbeat is received, ensuring near-instantaneous responses rather than slow synchronous operations.
 - **Redundancy**: For increased reliability, you can deploy multiple Dead Watcher instances, with their URLs specified in the `config.php` file of the main trading service.
 
- **Heartbeat Signals**: If `dead_watcher` is true, the trading bot should send a POST request to each URL in `dead_watcher_urls` every 120 seconds with the payload: `{"pair": "BTC_USDT", "bot_id": 5, "timestamp": <unix_timestamp>}`.
+ **Heartbeat Signals**: If `dead_watcher` is true, the trading bot should send a POST request to each URL in `dead_watcher_urls` every 60 seconds with the payload: `{"pair": "BTC_USDT", "bot_id": 5, "timestamp": <unix_timestamp>}`.
 
 ## Requirements
 - PHP 8.1+
