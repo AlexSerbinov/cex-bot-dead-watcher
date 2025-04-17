@@ -10,7 +10,7 @@ services:
       - ./logs:/app/logs
     environment:
       - DEAD_WATCHER_PORT=5503
-      - TRADE_SERVER_URL=http://195.7.7.93:18080
+      - TRADE_SERVER_URL=http://164.68.117.90:18080
     ports:
       - '5503:5503'
     networks:
@@ -27,7 +27,7 @@ services:
       - ./logs:/app/logs
     environment:
       - DEAD_WATCHER_PORT=6503
-      - TRADE_SERVER_URL=http://164.68.117.90:18080
+      - TRADE_SERVER_URL=http://195.7.7.93:18080
     ports:
       - '6503:6503'
     networks:
